@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Update') {
+			environment {
+				GXPROGRAMDIR = credentials('LUCIAGXPROGRAMDIR')
+				SERVERUSER = credentials('LUCIASERVERUSER')
+				SERVERPASS = credentials('LUCIASERVERPASS')
+				KBDIR = credentials('LUCIAKBDir')
+			}
+            steps {
+                echo '----- Update from GXServer -----'
+				build job:'Update', parameters: [text(name: 'GXPROGRAMDIR', value: "${GXPROGRAMDIR}"),text(name: 'SERVERUSER', value: "${SERVERUSER}"),text(name: 'SERVERPASS', value: "${SERVERPASS}"),text(name: 'KBDIR', value: "${KBDIR}"),text(name: 'KBVERSION', value: "LUCIAx")]
+			}
+        }
+		stage('Build') {
+			environment {
+				GXPROGRAMDIR = credentials('LUCIAGXPROGRAMDIR')
+				SERVERUSER = credentials('LUCIASERVERUSER')
+				SERVERPASS = credentials('LUCIASERVERPASS')
+				KBDIR = credentials('LUCIAKBDir')
+			}
+            steps {
+                echo '----- Building -----'
+				build job:'Build', parameters: [text(name: 'GXPROGRAMDIR', value: "${GXPROGRAMDIR}"),text(name: 'SERVERUSER', value: "${SERVERUSER}"),text(name: 'SERVERPASS', value: "${SERVERPASS}"),text(name: 'KBDIR', value: "${KBDIR}"),text(name: 'KBVERSION', value: "LUCIAx")]
+            }
+        }
+	}	
+}
