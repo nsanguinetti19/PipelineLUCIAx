@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-/*        stage('Update') {
+        stage('Update') {
 			environment {
 				GXPROGRAMDIR = credentials('LUCIAGXPROGRAMDIR')
 				SERVERUSER = credentials('LUCIASERVERUSER')
@@ -27,7 +27,7 @@ pipeline {
                 echo '----- Building -----'
 				build job:'Build', parameters: [text(name: 'GXPROGRAMDIR', value: "${GXPROGRAMDIR}"),text(name: 'SERVERUSER', value: "${SERVERUSER}"),text(name: 'SERVERPASS', value: "${SERVERPASS}"),text(name: 'KBDIR', value: "${KBDIR}"),text(name: 'KBVERSION', value: "${KBVERSION}")]
             }
-        }*/
+        }
 		stage('Packaging') {
 			environment {
 				BATPACKDIR = credentials('LUCIABATPACK')
